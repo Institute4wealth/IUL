@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Katie - The Born to Win Planner</title>
+    <title>Katherine - The Born to Win Planner</title>
     <!-- Use the Inter font and the new Cinzel font from Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -62,20 +62,10 @@
                 box-shadow: 0 0 15px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
             }
         }
-        .fade-in-up {
-            animation: fadeInUp 1s ease-out forwards;
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+        
         /* New CSS for the pulsating orb and animated background */
         .animated-orb-bg {
-            background-image: linear-gradient(135deg, #0a0a0a 0%, #172a4d 100%);
+            background-image: linear-gradient(135deg, #0a0a0a 0%, #ff69b4 100%);
             animation: diagonal-pulse 8s ease-in-out infinite;
             overflow: hidden; /* Ensures orb doesn't spill out */
         }
@@ -88,15 +78,16 @@
             transform: translate(-50%, -50%);
             width: 250vh; /* Increased size */
             height: 250vh; /* Increased size */
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0) 50%);
+            background: radial-gradient(circle, rgba(255, 105, 180, 0.6) 0%, rgba(255, 105, 180, 0) 50%);
             border-radius: 50%;
             animation: orb-pulse-rotate 8s ease-in-out infinite; /* Adjusted animation duration */
             z-index: 0;
         }
 
         @keyframes diagonal-pulse {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+            0% { background-position: 0% 100%; }
+            50% { background-position: 100% 0%; }
+            100% { background-position: 0% 100%; }
         }
 
         @keyframes orb-pulse-rotate {
@@ -120,18 +111,48 @@
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative; /* Needed for the pseudo-element orb */
+            overflow: hidden; /* Keeps orb inside */
         }
-
-        /* Pulsing glow for text */
-        .text-glow-pulse {
-            animation: textGlowPulse 2s ease-in-out infinite;
+        
+        /* Orb behind the glass cards */
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100vh; /* Adjusted size */
+            height: 100vh; /* Adjusted size */
+            background: radial-gradient(circle, rgba(255, 105, 180, 0.6) 0%, rgba(255, 105, 180, 0) 50%);
+            border-radius: 50%;
+            animation: orb-pulse-rotate 8s ease-in-out infinite;
+            z-index: -1; /* Puts it behind the card content */
         }
-        @keyframes textGlowPulse {
+        
+        /* Neon pink pulsating glow for all text */
+        .neon-pulse-glow {
+            animation: neonGlowPulse 2s ease-in-out infinite;
+        }
+        @keyframes neonGlowPulse {
             0%, 100% {
-                text-shadow: 0 0 5px rgba(255, 255, 255, 0.6), 0 0 10px rgba(255, 255, 255, 0.3);
+                text-shadow: 0 0 5px #ff69b4, 0 0 10px #ff69b4, 0 0 15px #ff69b4;
             }
             50% {
-                text-shadow: 0 0 10px rgba(255, 255, 255, 0.9), 0 0 20px rgba(255, 255, 255, 0.5);
+                text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
+            }
+        }
+        /* Neon glow for elements */
+        .element-neon-glow {
+            box-shadow: 0 0 5px #ff69b4, 0 0 10px #ff69b4, 0 0 15px #ff69b4;
+            animation: elementNeonGlowPulse 2s ease-in-out infinite;
+        }
+        @keyframes elementNeonGlowPulse {
+            0%, 100% {
+                box-shadow: 0 0 5px #ff69b4, 0 0 10px #ff69b4, 0 0 15px #ff69b4;
+            }
+            50% {
+                box-shadow: 0 0 10px #ff69b4, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
             }
         }
     </style>
@@ -145,13 +166,13 @@
         <div id="section-1" class="scroll-snap-section flex-col animated-orb-bg">
             <div class="overlay"></div>
             <div class="content max-w-2xl px-4">
-                <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-4 leading-tight fade-in-up fancy-font text-glow-pulse">
+                <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-4 leading-tight fancy-font neon-pulse-glow">
                     Two days before my big promotion panel, I was stressed and doubting myself.
                 </h1>
-                <p class="text-xl md:text-2xl font-medium text-gray-300 fade-in-up" style="animation-delay: 0.5s;">
+                <p class="text-xl md:text-2xl font-medium text-gray-300 neon-pulse-glow">
                     Then, something wild happened. My Google Nest speaker, out of nowhere, started playing a message that changed everything.
                 </p>
-                <button onclick="scrollToSection('section-2')" class="mt-8 bg-white text-gray-900 px-8 py-4 rounded-full font-bold shadow-lg transform transition-transform hover:scale-105 glow fade-in-up" style="animation-delay: 1s;">
+                <button onclick="scrollToSection('section-2')" class="mt-8 bg-white text-gray-900 px-8 py-4 rounded-full font-bold shadow-lg transform transition-transform hover:scale-105 glow neon-pulse-glow">
                     What Did It Say?
                 </button>
             </div>
@@ -160,29 +181,29 @@
         <!-- Section 2: The Core Message & Mission -->
         <div id="section-2" class="scroll-snap-section bg-gray-900 text-white">
             <div class="content max-w-4xl px-4">
-                <p class="text-2xl md:text-3xl font-bold mb-6 text-yellow-300 fancy-font">
+                <p class="text-2xl md:text-3xl font-bold mb-6 text-yellow-300 fancy-font neon-pulse-glow">
                     The voice said:
                 </p>
-                <h2 class="text-4xl md:text-5xl font-bold mb-8 leading-tight fancy-font text-glow-pulse">
+                <h2 class="text-4xl md:text-5xl font-bold mb-8 leading-tight fancy-font neon-pulse-glow">
                     "You were not born to try; you were sent here to win."
                 </h2>
-                <p class="text-xl md:text-2xl font-light leading-relaxed">
+                <p class="text-xl md:text-2xl font-light leading-relaxed neon-pulse-glow">
                     That message became my mission. I stopped thinking about just 'trying' and started moving like I was meant to. Today, I help families with **financial literacy**, **infinite banking**, and **asset protection** so they can stop just surviving and start winning.
                 </p>
             </div>
         </div>
 
         <!-- Section 3: Client Testimonial (Social Proof) -->
-        <div id="section-3" class="scroll-snap-section bg-gray-950 text-white">
+        <div id="section-3" class="scroll-snap-section animated-orb-bg text-white">
             <div class="content max-w-2xl px-4">
-                <h2 class="text-3xl md:text-4xl font-bold mb-6 text-center text-yellow-300 fancy-font">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6 text-center text-yellow-300 fancy-font neon-pulse-glow">
                     Real Results, Real People
                 </h2>
-                <div class="glass-card p-8 rounded-xl shadow-2xl">
-                    <p class="text-lg md:text-xl italic leading-relaxed">
-                        "I've been working with Katie for six months, and the change has been incredible. She didn't just give us advice; she empowered us. We finally feel in control of our finances and are building a secure future for our family. She truly helps you feel like a winner."
+                <div class="glass-card element-neon-glow p-8 rounded-xl shadow-2xl">
+                    <p class="text-lg md:text-xl italic leading-relaxed neon-pulse-glow">
+                        "I've been working with Katherine for six months, and the change has been incredible. She didn't just give us advice; she empowered us. We finally feel in control of our finances and are building a secure future for our family. She truly helps you feel like a winner."
                     </p>
-                    <p class="mt-6 text-right font-semibold text-gray-300">— Jane Doe, Happy Client</p>
+                    <p class="mt-6 text-right font-semibold text-gray-300 neon-pulse-glow">— Jane Doe, Happy Client</p>
                 </div>
             </div>
         </div>
@@ -190,14 +211,19 @@
         <!-- Section 4: The Contact Form (Call to Action) -->
         <div id="section-4" class="scroll-snap-section bg-gray-900 text-white">
             <div class="content max-w-xl px-4 w-full">
-                <h2 class="text-3xl md:text-4xl font-bold mb-6 text-center text-yellow-300 fancy-font">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6 text-center text-yellow-300 fancy-font neon-pulse-glow">
                     Ready to Start Winning?
                 </h2>
-                <p class="text-xl md:text-2xl mb-8 text-center text-gray-300">
+                <p class="text-xl md:text-2xl mb-8 text-center text-gray-300 neon-pulse-glow">
                     Let's connect and build your personalized plan.
                 </p>
-                <div class="glass-card p-8 rounded-xl shadow-2xl">
-                    <form id="contact-form" class="space-y-6">
+                <div class="glass-card element-neon-glow p-8 rounded-xl shadow-2xl">
+                    <!--
+                        This form uses a free service called FormSubmit.co to send the email.
+                        To make it work, simply replace "your-email-address@example.com"
+                        with the email address where you want to receive messages.
+                    -->
+                    <form action="https://formsubmit.co/i4wk8z@gmail.com" method="POST" id="contact-form" class="space-y-6">
                         <div>
                             <input type="text" id="name" name="name" placeholder="Your Name" required
                                 class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-all duration-300 placeholder-gray-400 text-white">
@@ -212,8 +238,8 @@
                         </div>
                         <div class="flex justify-center">
                             <button type="submit"
-                                class="bg-yellow-500 text-gray-900 px-10 py-4 rounded-full font-bold shadow-lg transform transition-transform hover:scale-105 hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2">
-                                Connect with Katie
+                                class="bg-pink-500 text-white px-10 py-4 rounded-full font-bold shadow-lg transform transition-transform hover:scale-105 hover:bg-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 glow neon-pulse-glow">
+                                Connect with Katherine
                             </button>
                         </div>
                     </form>
@@ -236,17 +262,13 @@
         // Handle form submission without a backend
         document.getElementById('contact-form').addEventListener('submit', function(event) {
             // Prevent the default form submission
-            event.preventDefault();
-
-            // Hide the form and show the success message
-            this.style.display = 'none';
-            document.getElementById('success-message').style.display = 'block';
-        });
-
-        // Set a slight delay to ensure the page loads before animations start
-        document.addEventListener('DOMContentLoaded', () => {
-            const elements = document.querySelectorAll('.fade-in-up');
-            elements.forEach(el => el.style.opacity = 1);
+            // This is handled by FormSubmit.co, but we can still show a message
+            setTimeout(() => {
+                // Hide the form and show the success message after a small delay
+                // to allow the form to be submitted first.
+                this.style.display = 'none';
+                document.getElementById('success-message').style.display = 'block';
+            }, 100);
         });
     </script>
 </body>
